@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
 import AdminLayout from "../layout/AdminLayout";
 import api from "../api/axios";
 
@@ -9,12 +8,11 @@ export default function Dashboard() {
     services: 0,
     blogs: 0,
     inquiries: 0,
-    warnings: 0, // ✅ NEW
+    warnings: 0,
   });
 
-  const navigate = useNavigate();
-
-  const fetchCounts = async () => {
+  // ✅ FIXED with useCallback
+  const fetchCounts = useCallback(async () => {
     try {
       const [portfolioRes, servicesRes, blogsRes, inquiriesRes, warningsRes] =
         await Promise.all([
@@ -22,7 +20,7 @@ export default function Dashboard() {
           api.get("/services"),
           api.get("/blogs"),
           api.get("/inquiries"),
-          api.get("/warningmessage/all"), // ✅ NEW API
+          api.get("/warningmessage/all"),
         ]);
 
       setCounts({
@@ -30,12 +28,12 @@ export default function Dashboard() {
         services: getLength(servicesRes),
         blogs: getLength(blogsRes),
         inquiries: getLength(inquiriesRes),
-        warnings: getLength(warningsRes), // ✅ NEW
+        warnings: getLength(warningsRes),
       });
     } catch (error) {
       console.log("Dashboard API error:", error);
     }
-  };
+  }, []);
 
   const getLength = (res) => {
     return (
@@ -54,7 +52,7 @@ export default function Dashboard() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchCounts]); // ✅ FIXED
 
   return (
     <AdminLayout>
@@ -72,21 +70,15 @@ export default function Dashboard() {
         <Card title="Services" value={counts.services} link="/services" />
         <Card title="Blogs" value={counts.blogs} link="/blogs" />
         <Card title="Inquiries" value={counts.inquiries} link="/inquiries" />
-
-        {/* ✅ WARNING CARD ADDED */}
-        <Card
-          title="Warnings"
-          value={counts.warnings}
-          link="/warningmessage"
-        />
+        <Card title="Warnings" value={counts.warnings} link="/warningmessage" />
       </div>
     </AdminLayout>
   );
 }
 
-// CARD COMPONENT
+// CARD COMPONENT (no change)
 function Card({ title, value, link }) {
-  const navigate = useNavigate();
+  const navigate = require("react-router-dom").useNavigate();
 
   return (
     <div
