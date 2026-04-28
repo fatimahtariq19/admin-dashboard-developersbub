@@ -1,24 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Portfolio from "./pages/Portfolio";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Services from "./pages/Services";
+import Blogs from "./pages/Blogs";
+import Inquiries from "./pages/Inquiries";
+import CreatePortfolio from "./pages/CreatePortfolio";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+
+        {/* PUBLIC */}
+        <Route path="/" element={<Login />} />
+
+        {/* PROTECTED */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/portfolio"
+          element={
+            <ProtectedRoute>
+              <Portfolio />
+            </ProtectedRoute>
+          }
+        />
+
+<Route
+  path="/services"
+  element={
+    <ProtectedRoute>
+      <Services />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/blogs"
+  element={
+    <ProtectedRoute>
+      <Blogs />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/inquiries"
+  element={
+    <ProtectedRoute>
+      <Inquiries />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/createportfolio"
+  element={
+    <ProtectedRoute>
+      <CreatePortfolio />
+    </ProtectedRoute>
+  }
+/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
