@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Portfolio from "./pages/Portfolio";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,11 +18,11 @@ function App() {
 
         {/* PROTECTED */}
         <Route
-          path="/dashboard"
+          path="/"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Dashboard />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -35,59 +35,59 @@ function App() {
           }
         />
 
-<Route
-  path="/services"
-  element={
-    <ProtectedRoute>
-      <Services />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/services"
+          element={
+            <ProtectedRoute>
+              <Services />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/blogs"
-  element={
-    <ProtectedRoute>
-      <Blogs />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/blogs"
+          element={
+            <ProtectedRoute>
+              <Blogs />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/inquiries"
-  element={
-    <ProtectedRoute>
-      <Inquiries />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/inquiries"
+          element={
+            <ProtectedRoute>
+              <Inquiries />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/createportfolio"
-  element={
-    <ProtectedRoute>
-      <CreatePortfolio />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/createportfolio"
+          element={
+            <ProtectedRoute>
+              <CreatePortfolio />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/blogs"
-  element={
-    <ProtectedRoute>
-      <Warningpage />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/blogs"
+          element={
+            <ProtectedRoute>
+              <Warningpage />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/warningmessage"
-  element={
-    <ProtectedRoute>
-      <Warningpage />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/warningmessage"
+          element={
+            <ProtectedRoute>
+              <Warningpage />
+            </ProtectedRoute>
+          }
+        />
 
       </Routes>
     </BrowserRouter>

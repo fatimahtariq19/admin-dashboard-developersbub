@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ toggle }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("token");
+  //   navigate("/");
+  // };
 
   return (
     <div
@@ -29,9 +29,9 @@ export default function Navbar({ toggle }) {
       <div style={{ display: "flex", gap: "10px" }}>
         <span>Admin</span>
 
-        <button onClick={logout} style={{ background: "red", color: "white" }}>
+        {/* <button onClick={logout} style={{ background: "red", color: "white" }}>
           Logout
-        </button>
+        </button> */}
       </div>
     </div>
   );
