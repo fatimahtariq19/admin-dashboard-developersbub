@@ -9,18 +9,20 @@ export default function Dashboard() {
     services: 0,
     blogs: 0,
     inquiries: 0,
+    warnings: 0, // ✅ NEW
   });
 
   const navigate = useNavigate();
 
   const fetchCounts = async () => {
     try {
-      const [portfolioRes, servicesRes, blogsRes, inquiriesRes] =
+      const [portfolioRes, servicesRes, blogsRes, inquiriesRes, warningsRes] =
         await Promise.all([
           api.get("/portfolio"),
           api.get("/services"),
           api.get("/blogs"),
-          api.get("/inquiries"), // ✅ correct endpoint
+          api.get("/inquiries"),
+          api.get("/warningmessage/all"), // ✅ NEW API
         ]);
 
       setCounts({
@@ -28,13 +30,13 @@ export default function Dashboard() {
         services: getLength(servicesRes),
         blogs: getLength(blogsRes),
         inquiries: getLength(inquiriesRes),
+        warnings: getLength(warningsRes), // ✅ NEW
       });
     } catch (error) {
       console.log("Dashboard API error:", error);
     }
   };
 
-  // helper function (safe length extraction)
   const getLength = (res) => {
     return (
       res.data?.length ||
@@ -58,11 +60,25 @@ export default function Dashboard() {
     <AdminLayout>
       <h1>Dashboard Home</h1>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          marginTop: "20px",
+          flexWrap: "wrap",
+        }}
+      >
         <Card title="Portfolio" value={counts.portfolio} link="/portfolio" />
         <Card title="Services" value={counts.services} link="/services" />
         <Card title="Blogs" value={counts.blogs} link="/blogs" />
         <Card title="Inquiries" value={counts.inquiries} link="/inquiries" />
+
+        {/* ✅ WARNING CARD ADDED */}
+        <Card
+          title="Warnings"
+          value={counts.warnings}
+          link="/warningmessage"
+        />
       </div>
     </AdminLayout>
   );
@@ -80,7 +96,7 @@ function Card({ title, value, link }) {
         color: "white",
         padding: "20px",
         borderRadius: "10px",
-        width: "160px",
+        width: "150px",
         cursor: "pointer",
         transition: "0.3s",
         textAlign: "center",

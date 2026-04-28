@@ -7,6 +7,7 @@ import Services from "./pages/Services";
 import Blogs from "./pages/Blogs";
 import Inquiries from "./pages/Inquiries";
 import CreatePortfolio from "./pages/CreatePortfolio";
+import Warningpage from "./pages/Warningpage"
 function App() {
   return (
     <BrowserRouter>
@@ -69,6 +70,25 @@ function App() {
     </ProtectedRoute>
   }
 />
+
+<Route
+  path="/blogs"
+  element={
+    <ProtectedRoute>
+      <Warningpage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/warningmessage"
+  element={
+    <ProtectedRoute>
+      <Warningpage />
+    </ProtectedRoute>
+  }
+/>
+
       </Routes>
     </BrowserRouter>
   );
